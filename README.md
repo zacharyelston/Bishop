@@ -8,44 +8,164 @@ Just as biblical zealots were "zealous on behalf of God" and required religious 
 
 ## Bishop: The Technical Implementation
 
-**Bishop** serves as the spiritual and technical successor to [DevOpsZealot](https://github.com/zacharyelston/DevOpsZealot), acting as the high-level orchestrator that:
+**Bishop** is a specialized fork of [DevOpsZealot](https://github.com/zacharyelston/DevOpsZealot) that serves as the high-level orchestrator. While DevOpsZealot executes infrastructure changes, Bishop focuses on understanding, planning, and overseeing the work.
 
-### 1. **Reads the Sacred Texts (Redmine Issues)**
-Bishop interprets project requirements from Redmine, understanding the deeper context and technical needs embedded within each issue.
+## Architecture
 
-### 2. **Provides Divine Instruction**
-It enriches sparse issue descriptions with detailed technical specifications, acceptance criteria, and implementation guidance that DevOpsZealot needs to execute effectively.
-
-### 3. **Channels Zealous Energy**
-Bishop transforms high-level business requirements into actionable technical tasks, breaking down complex projects into discrete jobs that zealots can accomplish autonomously.
-
-### 4. **Maintains Orthodoxy**
-Ensures that all zealot actions align with organizational standards, security requirements, and best practices - preventing the kind of unguided fervor that historically led zealots astray.
-
-### 5. **Offers Pastoral Care**
-Monitors zealot performance, provides feedback loops, and adjusts instructions based on outcomes - much like bishops historically guided their flock.
-
-## Technical Architecture
+Bishop shares the same core architecture as DevOpsZealot but with a completely different mission:
 
 ```
-Redmine → Bishop (Orchestrator) → DevOpsZealot (Executor)
-    ↓           ↓                        ↓
- Issues    Enrichment              Autonomous
-           & Planning              Execution
+┌─────────────────────────────────────────────────────────────┐
+│                         BISHOP WORKFLOW                       │
+├─────────────────────────────────────────────────────────────┤
+│                                                               │
+│  1. READ PHASE (Sacred Texts)                                │
+│     Redmine API → Issue Fetching → Context Gathering         │
+│                                                               │
+│  2. RESEARCH PHASE (Divine Study)                            │
+│     Issue Analysis → Related Issues → Documentation Search   │
+│     Code Repository Analysis → Pattern Recognition           │
+│                                                               │
+│  3. DELIBERATION PHASE (Council of Models)                   │
+│     Multiple LLMs → Different Contexts → Task Generation     │
+│     ├── GPT-4: Business Requirements Analysis                │
+│     ├── Claude: Technical Implementation Details             │
+│     └── Local LLM: Security & Compliance Check               │
+│                                                               │
+│  4. REVIEW PHASE (Human Blessing)                            │
+│     Task Proposals → Human Review Interface → Approval       │
+│                                                               │
+│  5. ASSIGNMENT PHASE (Divine Instruction)                    │
+│     Final Task Creation → DevOpsZealot Assignment            │
+│     Detailed Instructions → Success Criteria                 │
+│                                                               │
+│  6. OVERSIGHT PHASE (Pastoral Care)                          │
+│     Monitor Zealot Execution → Review Results                │
+│     Performance Rating → Feedback Loop                       │
+│     Update Redmine → Close Loop                              │
+│                                                               │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-### Core Capabilities
+## Core Differences from DevOpsZealot
 
-Bishop will:
-- Connect to Redmine API to fetch and monitor issues
-- Use AI to analyze issue context and generate detailed requirements
-- Create structured job definitions for DevOpsZealot
-- Track execution status and update Redmine accordingly
-- Provide a feedback loop for continuous improvement
+While Bishop shares DevOpsZealot's codebase, it operates with fundamentally different:
+
+### **Rules**
+- Bishop cannot directly modify code - it only creates instructions
+- Bishop must get human approval before assigning tasks
+- Bishop evaluates work rather than executing it
+
+### **Context**
+- Bishop works with Redmine issues, not git repositories
+- Bishop focuses on requirements and planning, not implementation
+- Bishop considers multiple perspectives through different LLMs
+
+### **Outputs**
+- Bishop produces task definitions, not code changes
+- Bishop generates performance reviews, not pull requests
+- Bishop updates issue tracking, not git commits
+
+## Key Components (Adapted from DevOpsZealot)
+
+### Core System (src/bishop/)
+- **Redmine Client**: Interface with Redmine API for issue management
+- **Research Engine**: Gathers context from multiple sources
+- **LLM Orchestrator**: Manages multiple AI models for different perspectives
+- **Review Interface**: Human approval workflow for task assignments
+- **Task Generator**: Creates detailed instructions for DevOpsZealot
+- **Performance Evaluator**: Reviews and rates zealot work
+
+### Shared Components (from DevOpsZealot)
+- **AI Integration**: Multi-model support with different prompts
+- **Container Management**: Isolated environments for analysis
+- **Monitoring**: Metrics and observability
+- **Config Management**: Environment and API configurations
+
+## Workflow Example
+
+```python
+# Bishop reads a Redmine issue
+issue = bishop.read_redmine_issue(issue_id=1234)
+
+# Research and gather context
+context = bishop.research_phase(
+    issue=issue,
+    search_related=True,
+    analyze_codebase=True
+)
+
+# Generate task proposals using multiple LLMs
+proposals = bishop.deliberation_phase(
+    issue=issue,
+    context=context,
+    models=['gpt-4', 'claude', 'local-llm']
+)
+
+# Present for human review
+approved_task = bishop.human_review(proposals)
+
+# Assign to DevOpsZealot
+zealot_job = bishop.assign_to_zealot(
+    task=approved_task,
+    zealot_id='zealot-001'
+)
+
+# Monitor and evaluate
+result = bishop.monitor_execution(zealot_job)
+performance = bishop.evaluate_performance(result)
+bishop.update_redmine(issue_id=1234, status='completed', rating=performance)
+```
+
+## Installation
+
+*Note: Bishop is a fork of DevOpsZealot. Most setup is identical.*
+
+```bash
+# Clone repository
+git clone https://github.com/zacharyelston/Bishop.git
+cd Bishop
+
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+pip install -e .
+
+# Set up environment
+cp .env.example .env
+# Edit .env with your API keys (Redmine, OpenAI, Claude, etc.)
+
+# Run tests
+pytest
+
+# Start Bishop server
+python -m bishop.server
+```
+
+## Configuration
+
+Bishop requires additional configuration beyond DevOpsZealot:
+
+```env
+# Redmine Configuration
+REDMINE_URL=https://your-redmine-instance.com
+REDMINE_API_KEY=your-api-key
+
+# Multiple LLM Configurations
+OPENAI_API_KEY=your-openai-key
+ANTHROPIC_API_KEY=your-claude-key
+LOCAL_LLM_ENDPOINT=http://localhost:11434
+
+# Bishop-specific settings
+BISHOP_REVIEW_REQUIRED=true
+BISHOP_MIN_LLM_CONSENSUS=2
+BISHOP_PERFORMANCE_THRESHOLD=0.8
+```
 
 ## The Religious Hierarchy in Code
-
-This naming continues the religious theme beautifully:
 
 - **Zealots** ([DevOpsZealot](https://github.com/zacharyelston/DevOpsZealot)) - The passionate executors of tasks
 - **Bishop** - The wise orchestrator providing direction and purpose
@@ -53,43 +173,35 @@ This naming continues the religious theme beautifully:
   - **Cardinal** - Multi-organization orchestration layer
   - **Pope** - Enterprise governance and policy layer
 
-The metaphor captures the essential relationship: zealots have the power and passion to accomplish great things, but they need the wisdom, strategy, and guidance that bishops provide to channel that energy effectively toward meaningful goals.
+## Development Roadmap
 
-## Planned Features
+### Phase 1: Foundation (Fork & Adapt)
+- [ ] Fork DevOpsZealot codebase
+- [ ] Replace git operations with Redmine API client
+- [ ] Adapt task structure for instruction generation
+- [ ] Remove direct code modification capabilities
 
-### Phase 1: Foundation
-- [ ] Redmine API integration
-- [ ] Basic issue parsing and enrichment
-- [ ] DevOpsZealot job creation
-- [ ] Status tracking and updates
+### Phase 2: Intelligence (Multi-Model Deliberation)
+- [ ] Implement multi-LLM orchestration
+- [ ] Create context-specific prompts for each model
+- [ ] Build consensus mechanism for task generation
+- [ ] Add research engine for gathering context
 
-### Phase 2: Intelligence
-- [ ] AI-powered requirement analysis
-- [ ] Context-aware task breakdown
-- [ ] Dependency detection and management
-- [ ] Smart prioritization
+### Phase 3: Human Interface
+- [ ] Build review interface for task approval
+- [ ] Create dashboard for monitoring zealot performance
+- [ ] Implement feedback collection system
+- [ ] Add performance analytics
 
-### Phase 3: Wisdom
-- [ ] Learning from execution outcomes
+### Phase 4: Wisdom (Learning & Optimization)
 - [ ] Pattern recognition across issues
-- [ ] Proactive suggestion engine
-- [ ] Performance optimization
-
-## Installation
-
-*Coming soon...*
-
-## Configuration
-
-*Coming soon...*
-
-## Usage
-
-*Coming soon...*
+- [ ] Performance-based model selection
+- [ ] Automated context enrichment
+- [ ] Predictive task complexity estimation
 
 ## Contributing
 
-This project is in early development. Contributions and ideas are welcome!
+This project is in early development. Since Bishop is a fork of DevOpsZealot, contributions should consider compatibility with the parent project where appropriate.
 
 ## License
 
