@@ -229,3 +229,5 @@ MIT License - See LICENSE file for details
 *"For zeal without knowledge is not good" - Proverbs 19:2*
 
 *Bishop provides the knowledge to guide the zeal.*
+
+Yes, we also named it after Lance Henriksen's Bishop character in the science fiction film Aliens (1986).
