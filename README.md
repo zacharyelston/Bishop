@@ -8,7 +8,7 @@ Just as biblical zealots were "zealous on behalf of God" and required religious 
 
 ## Bishop: The Technical Implementation
 
-**Bishop** is a specialized fork of [DevOpsZealot](https://github.com/zacharyelston/DevOpsZealot) that serves as the high-level orchestrator. While DevOpsZealot executes infrastructure changes, Bishop focuses on understanding, planning, and overseeing the work.
+**Bishop** is a specialized fork of [DevOpsZealot](https://github.com/zacharyelston/DevOpsZealot) that serves as the high-level orchestrator. While DevOpsZealot executes code changes autonomously, Bishop focuses on understanding requirements, planning work, and overseeing execution.
 
 ## Architecture
 
@@ -117,6 +117,19 @@ performance = bishop.evaluate_performance(result)
 bishop.update_redmine(issue_id=1234, status='completed', rating=performance)
 ```
 
+## What Bishop Orchestrates
+
+Bishop can orchestrate DevOpsZealot to work on any type of code:
+- **Application Code**: Features, bug fixes, refactoring
+- **Infrastructure as Code**: Terraform, CloudFormation, Ansible
+- **Configuration Files**: YAML, JSON, TOML configurations
+- **Scripts**: Bash, Python, PowerShell automation
+- **Documentation**: Markdown, API docs, technical guides
+- **Test Code**: Unit tests, integration tests, E2E tests
+- **CI/CD Pipelines**: GitHub Actions, Jenkins, GitLab CI
+
+If it's code in a git repository, DevOpsZealot can work on it, and Bishop can orchestrate it.
+
 ## Installation
 
 *Note: Bishop is a fork of DevOpsZealot. Most setup is identical.*
@@ -167,7 +180,7 @@ BISHOP_PERFORMANCE_THRESHOLD=0.8
 
 ## The Religious Hierarchy in Code
 
-- **Zealots** ([DevOpsZealot](https://github.com/zacharyelston/DevOpsZealot)) - The passionate executors of tasks
+- **Zealots** ([DevOpsZealot](https://github.com/zacharyelston/DevOpsZealot)) - The passionate executors of code changes
 - **Bishop** - The wise orchestrator providing direction and purpose
 - Future possibilities: 
   - **Cardinal** - Multi-organization orchestration layer
@@ -209,7 +222,7 @@ MIT License - See LICENSE file for details
 
 ## Related Projects
 
-- [DevOpsZealot](https://github.com/zacharyelston/DevOpsZealot) - The autonomous AI-powered infrastructure editing tool that Bishop orchestrates
+- [DevOpsZealot](https://github.com/zacharyelston/DevOpsZealot) - The autonomous AI-powered code editing tool that Bishop orchestrates
 
 ---
 
